@@ -1,0 +1,13 @@
+.btn {
+	font-size: 30px;
+}
+
+.disabled {
+	opacity: 1.0;
+}
+
+form {
+	display: inline-block;
+	margin: 5px;
+	padding: 5px;
+}
