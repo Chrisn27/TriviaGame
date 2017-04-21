@@ -6,8 +6,12 @@
 	opacity: 1.0;
 }
 
-form {
-	display: inline-block;
-	margin: 5px;
+h4 {
+	display: inline;
+	margin: 0 10px;
 	padding: 5px;
+}
+
+.submit {
+	margin: 10px;
 }
