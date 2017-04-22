@@ -94,7 +94,6 @@ var trivia = {
 
     else if (x0 != questions[0].ans) {
         trivia.wrong++;
-        trivia.unanswered--;
     }
 
     if (x1 === questions[1].ans) {
@@ -104,7 +103,6 @@ var trivia = {
 
     else if (x1 != questions[1].ans) {
         trivia.wrong++;
-        trivia.unanswered--;
     }
 
     if (x2 === questions[2].ans) {
@@ -114,7 +112,6 @@ var trivia = {
 
     else if (x2 != questions[2].ans) {
         trivia.wrong++;
-        trivia.unanswered--;
     }
 
     if (x3 === questions[3].ans) {
@@ -124,7 +121,6 @@ var trivia = {
 
     else if (x3 != questions[3].ans) {
         trivia.wrong++;
-        trivia.unanswered--;
     }
 
     if (x4 === questions[4].ans) {
@@ -134,9 +130,12 @@ var trivia = {
 
     else if (x4 != questions[4].ans) {
         trivia.wrong++;
-        trivia.unanswered--;
     }
 
+    else {
+      trivia.unanswered--;
+    }
+    
     clearInterval(intervalId);
     $("#playerScore").html("<h3>You got " + trivia.correct + " questions right!" + "</h3>"
                          + "<h3>You got " + trivia.wrong + " questions wrong" + "</h3>"
