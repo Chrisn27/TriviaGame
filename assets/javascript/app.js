@@ -37,7 +37,7 @@ var trivia = {
 
 // guesses = $('input[name=x0]:checked', '#gameQuestions').val()
 
-	gameTime: 1,
+	gameTime: 45,
 	unanswered: 5,
 	correct: 0,
 	wrong: 0,
@@ -73,10 +73,12 @@ var trivia = {
     $("#gameQuestions").append(submit);
 
     submit.click(function() {
-    score();
+    trivia.score();
     })
 
-    function score() {
+},
+
+    score: function() {
     
     var x0 = $('input[name=x0]:checked', '#gameQuestions').val();
     var x1 = $('input[name=x1]:checked', '#gameQuestions').val();
@@ -87,22 +89,52 @@ var trivia = {
 
     if (x0 === questions[0].ans) {
         trivia.correct++;
+        trivia.unanswered--;
     }
+
+    else if (x0 != questions[0].ans) {
+        trivia.wrong++;
+        trivia.unanswered--;
+    }
+
     if (x1 === questions[1].ans) {
         trivia.correct++;
+        trivia.unanswered--;
     }
+
+    else if (x1 != questions[1].ans) {
+        trivia.wrong++;
+        trivia.unanswered--;
+    }
+
     if (x2 === questions[2].ans) {
         trivia.correct++;
+        trivia.unanswered--;
     }
+
+    else if (x2 != questions[2].ans) {
+        trivia.wrong++;
+        trivia.unanswered--;
+    }
+
     if (x3 === questions[3].ans) {
         trivia.correct++;
+        trivia.unanswered--;
     }
+
+    else if (x3 != questions[3].ans) {
+        trivia.wrong++;
+        trivia.unanswered--;
+    }
+
     if (x4 === questions[4].ans) {
         trivia.correct++;
-    //else if (empty === null) {
-        //trivia.unanswered--;
-    } else {
+        trivia.unanswered--;
+    }
+
+    else if (x4 != questions[4].ans) {
         trivia.wrong++;
+        trivia.unanswered--;
     }
 
     clearInterval(intervalId);
@@ -110,9 +142,8 @@ var trivia = {
                          + "<h3>You got " + trivia.wrong + " questions wrong" + "</h3>"
                          + "<h3>You failed to answer " + trivia.unanswered + "</h3>");
 
-    };
+    },
 
-  },
 
     // counts down from 120 by seconds
     count: function() {
@@ -123,12 +154,12 @@ var trivia = {
     $("#start").css("color", "orange");
     $("#start").css("background-color", "blue");
 
-    if (trivia.gameTime <= 40) {
+    if (trivia.gameTime <= 30) {
         $("#start").css("color", "yellow");
         $("#start").css("background-color", "purple");
     }
 
-    if (trivia.gameTime <= 20) {
+    if (trivia.gameTime <= 15) {
         $("#start").css("color", "red");
         $("#start").css("background-color", "green");
     }
@@ -136,7 +167,7 @@ var trivia = {
     // loss condition if they run out of time, will call a function to compute score
     if (trivia.gameTime <= 0) {
         clearInterval(intervalId);
-        trivia.start.score();
+        trivia.score();
         //alert("Time's up!")
     }
 
