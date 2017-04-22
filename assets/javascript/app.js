@@ -14,12 +14,12 @@ var questions = [{
 },
 {
   q: "What is the sigil of House Stark?",
-  answers: ["Dragons", "Dire Wolf", "Stag", "Kraken"],
-  ans: "Dire Wolf"
+  answers: ["Dragons", "Wolf", "Stag", "Kraken"],
+  ans: "Wolf"
 },
 {
   q: "How did you feel when Joffrey died?",
-  answers: ["Happy", "Sad", "Elated", "Angry"],
+  answers: ["Happy", "Sad", "Aroused", "Angry"],
   ans: "Happy"
 },
 {
@@ -33,11 +33,12 @@ var questions = [{
   ans: "Jaime"
 }]
 
-var guess;
 var trivia = {
 
-	gameTime: 60,
-	unanswered: 0,
+// guesses = $('input[name=x0]:checked', '#gameQuestions').val()
+
+	gameTime: 1,
+	unanswered: 5,
 	correct: 0,
 	wrong: 0,
 
@@ -59,16 +60,10 @@ var trivia = {
                                + "<h4><input type='radio'" + "name=x" + [i] + " value= " + questions[i].answers[2] + ">" + questions[i].answers[2] + "</h4>"
                                + "<h4><input type='radio'" + "name=x" + [i] + " value= " + questions[i].answers[3] + ">" + questions[i].answers[3] + "</h4>");
 
-        if (guess === questions[i].ans) {
-            trivia.correct++;
-        } else if (guess === null) {
-            trivia.unanswered++;
-        } else {
-            trivia.wrong++;
-        }
     }
 
     $("#gameQuestions").append("<br>");
+
 
     var submit = $("<button>");
     submit.text("Submit");
@@ -76,6 +71,46 @@ var trivia = {
     submit.addClass("btn-primary");
     submit.addClass("submit");
     $("#gameQuestions").append(submit);
+
+    submit.click(function() {
+    score();
+    })
+
+    function score() {
+    
+    var x0 = $('input[name=x0]:checked', '#gameQuestions').val();
+    var x1 = $('input[name=x1]:checked', '#gameQuestions').val();
+    var x2 = $('input[name=x2]:checked', '#gameQuestions').val();
+    var x3 = $('input[name=x3]:checked', '#gameQuestions').val();
+    var x4 = $('input[name=x4]:checked', '#gameQuestions').val();
+    var empty = $('input', '#gameQuestions')
+
+    if (x0 === questions[0].ans) {
+        trivia.correct++;
+    }
+    if (x1 === questions[1].ans) {
+        trivia.correct++;
+    }
+    if (x2 === questions[2].ans) {
+        trivia.correct++;
+    }
+    if (x3 === questions[3].ans) {
+        trivia.correct++;
+    }
+    if (x4 === questions[4].ans) {
+        trivia.correct++;
+    //else if (empty === null) {
+        //trivia.unanswered--;
+    } else {
+        trivia.wrong++;
+    }
+
+    clearInterval(intervalId);
+    $("#playerScore").html("<h3>You got " + trivia.correct + " questions right!" + "</h3>"
+                         + "<h3>You got " + trivia.wrong + " questions wrong" + "</h3>"
+                         + "<h3>You failed to answer " + trivia.unanswered + "</h3>");
+
+    };
 
   },
 
@@ -101,6 +136,7 @@ var trivia = {
     // loss condition if they run out of time, will call a function to compute score
     if (trivia.gameTime <= 0) {
         clearInterval(intervalId);
+        trivia.start.score();
         //alert("Time's up!")
     }
 
